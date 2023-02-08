@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
 import daybookRoutes from '@/modules/daybook/router'
+import authRoutes from '@/modules/auth/router'
 const routes = [
   {
     path: '/',
@@ -18,6 +19,10 @@ const routes = [
   {
     path: '/daybook',
     ...daybookRoutes
+  },
+  {
+    path:'/auth',
+    ...authRoutes
   }
 ]
 
