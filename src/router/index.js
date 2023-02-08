@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/Home.vue'
 import daybookRoutes from '@/modules/daybook/router'
 import authRoutes from '@/modules/auth/router'
+import isAuthenticatedGuard from './auth-guard';
 const routes = [
   {
     path: '/',
@@ -16,8 +17,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
+
   {
     path: '/daybook',
+    
+    beforeEnter: [ isAuthenticatedGuard ],
     ...daybookRoutes
   },
   {

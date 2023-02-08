@@ -2,23 +2,29 @@
 
 // export const mutations = (state) =>{}
 
-export const setEntry = ( state, entries) =>{
+export const loginUser = ( state, {user, idToken, refreshToken}) =>{
     
-    state.entries = [...state.entries, ...entries]
-    state.isLoading = false;
+    if(idToken){
+        localStorage.setItem('idToken', idToken);
+        state.idToken = idToken;
+    }
+    if(refreshToken){
+        localStorage.setItem('refreshToken', refreshToken);
+        state.refreshToken = refreshToken;
+    }
+
+    state.user = user
+
+    state.status = "authenticated"
+    
 }
 
-export const updateEntry = ( state, entrie ) =>{
-
-    state.entries = state.entries.map( e => e.id === entrie.id ? entrie : e);
-
+export const logoutUser = (state) => {
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('refreshToken');
+    state.idToken = null;
+    state.refreshToken = null;
+    state.user = null;
+    state.status = "unauthenticated"
 }
 
-export const addEntry = ( state, entry ) =>{
-   
-    state.entries.unshift(entry);
-}
-
-export const deleteEntry = ( state, id ) =>{
-    state.entries = state.entries.filter( e => e.id !== id);
-}
